@@ -1,43 +1,41 @@
 import streamlit as st
 import pandas as pd
-import numpy as np
+import matplotlib.pyplot as plt
 
-st.set_page_config(page_title="Data Dashboard", layout="wide")
+st.set_page_config(page_title="Player Search", layout="centered")
 
-st.title("📊 Data Dashboard")
-
-st.write("Basic interactive analytics app")
+st.title("Player Search Dashboard")
 
 # ========================
-# SIDEBAR
+# FAKE DATA (možeš kasnije menjati)
 # ========================
-st.sidebar.header("Controls")
+players = {
+    "Messi": [90, 85, 92, 88, 95],
+    "Ronaldo": [85, 90, 80, 87, 89],
+    "Mbappe": [88, 78, 85, 90, 91]
+}
 
-num_points = st.sidebar.slider("Number of data points", 10, 100, 50)
-
-# ========================
-# GENERATE DATA
-# ========================
-data = pd.DataFrame({
-    "x": np.arange(num_points),
-    "y": np.random.randn(num_points).cumsum()
-})
+labels = ["Pace", "Shooting", "Passing", "Dribbling", "Physical"]
 
 # ========================
-# MAIN CONTENT
+# SEARCH
 # ========================
-st.subheader("Line Chart")
-st.line_chart(data.set_index("x"))
-
-st.subheader("Data Table")
-st.dataframe(data)
+player_name = st.text_input("Enter player name:")
 
 # ========================
-# USER INPUT
+# BUTTON
 # ========================
-st.subheader("Add your value")
+if st.button("Show Player"):
+    if player_name in players:
 
-value = st.number_input("Enter a number", 0, 100, 10)
+        values = players[player_name]
 
-if st.button("Show value"):
-    st.success(f"You entered: {value}")
+        # pizza chart
+        fig, ax = plt.subplots()
+        ax.pie(values, labels=labels, autopct='%1.1f%%')
+        ax.set_title(player_name)
+
+        st.pyplot(fig)
+
+    else:
+        st.error("Player not found")
