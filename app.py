@@ -1,41 +1,30 @@
 import streamlit as st
-import pandas as pd
-import matplotlib.pyplot as plt
-
-st.set_page_config(page_title="Player Search", layout="centered")
 
 st.title("Player Search Dashboard")
 
-# ========================
-# FAKE DATA (možeš kasnije menjati)
-# ========================
-players = {
-    "Messi": [90, 85, 92, 88, 95],
-    "Ronaldo": [85, 90, 80, 87, 89],
-    "Mbappe": [88, 78, 85, 90, 91]
-}
+player = st.text_input("Enter player name:")
 
-labels = ["Pace", "Shooting", "Passing", "Dribbling", "Physical"]
-
-# ========================
-# SEARCH
-# ========================
-player_name = st.text_input("Enter player name:")
-
-# ========================
-# BUTTON
-# ========================
 if st.button("Show Player"):
-    if player_name in players:
 
-        values = players[player_name]
+    player = player.lower()
 
-        # pizza chart
-        fig, ax = plt.subplots()
-        ax.pie(values, labels=labels, autopct='%1.1f%%')
-        ax.set_title(player_name)
+    if player == "messi":
+        st.success("Lionel Messi")
+        st.write("Dribbling: 95")
+        st.write("Shooting: 92")
+        st.write("Passing: 91")
 
-        st.pyplot(fig)
+    elif player == "ronaldo":
+        st.success("Cristiano Ronaldo")
+        st.write("Dribbling: 88")
+        st.write("Shooting: 94")
+        st.write("Physical: 93")
+
+    elif player == "mbappe":
+        st.success("Kylian Mbappe")
+        st.write("Pace: 97")
+        st.write("Dribbling: 92")
+        st.write("Shooting: 89")
 
     else:
         st.error("Player not found")
