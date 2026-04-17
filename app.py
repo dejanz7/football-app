@@ -1,5 +1,4 @@
 import streamlit as st
 
-st.title("Football Analytics Dashboard")
-
-st.write("Welcome to your data app")
+st.title("Moj fudbal app")
+st.write("Radi brate 👍")
